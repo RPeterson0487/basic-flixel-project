@@ -1,7 +1,7 @@
 package;
 
-import flixel.text.FlxText;
 import flixel.FlxState;
+import flixel.text.FlxText;
 
 class PlayState extends FlxState
 {
