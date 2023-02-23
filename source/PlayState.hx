@@ -10,6 +10,11 @@ class PlayState extends FlxState
 
 		var myHero = new Hero(300, 300);
 		add(myHero);
+
+		var text = new flixel.text.FlxText(235, 200, 0, "Salvete, omnes!", 24);
+		text.color = 0x0080FF;
+		text.font = "Time New Roman";
+		add(text);
 	}
 
 	override public function update(elapsed:Float)
