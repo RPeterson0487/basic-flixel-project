@@ -1,5 +1,6 @@
 package;
 
+import flixel.text.FlxText;
 import flixel.FlxState;
 
 class PlayState extends FlxState
@@ -15,6 +16,9 @@ class PlayState extends FlxState
 		text.color = 0x0080FF;
 		text.font = "Time New Roman";
 		add(text);
+
+		var bar = new ScreenSaverHero(50, 50);
+		add(bar);
 	}
 
 	override public function update(elapsed:Float)
