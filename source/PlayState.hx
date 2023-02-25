@@ -22,9 +22,12 @@ class PlayState extends FlxState
 		var numBars = FlxG.random.int(2, 20);
 		for (i in 0...numBars)
 		{
-			var hero = new ScreenSaverHero(320, 240);
-			add(hero);
+			var screenSaverHero = new ScreenSaverHero(320, 240);
+			add(screenSaverHero);
 		}
+
+		var controllableHero = new ControllableHero(320, 240);
+		add(controllableHero);
 	}
 
 	override public function update(elapsed:Float)
