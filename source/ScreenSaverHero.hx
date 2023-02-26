@@ -15,20 +15,9 @@ import flixel.FlxSprite;
 **/
 class ScreenSaverHero extends FlxSprite
 {
-	/**
-		The set width of the sprite.
-	**/
 	static inline var SSHWIDTH = 20;
-
-	/**
-		The set height of the sprite.
-	**/
 	static inline var SSHHEIGHT = 10;
 
-	/**
-		The current speed of all of the ScreenSaverHero sprites on the board.
-		Speed is controlled by the up and down arrow keys.
-	**/
 	var speed = 50;
 
 	/**
@@ -53,20 +42,7 @@ class ScreenSaverHero extends FlxSprite
 	**/
 	override function update(elapsed:Float)
 	{
-		if (x >= 0 && x < 91)
-			color = 0xFF0000;
-		else if (x >= 91 && x < 182)
-			color = 0xFF7F00;
-		else if (x >= 182 && x < 273)
-			color = 0xFFFF00;
-		else if (x >= 273 && x < 364)
-			color = 0x00FF00;
-		else if (x >= 364 && x < 455)
-			color = 0x0000FF;
-		else if (x >= 455 && x < 546)
-			color = 0x4B0082;
-		else
-			color = 0x9400D3;
+		rainbowRegion();
 
 		FlxSpriteUtil.screenWrap(this);
 
@@ -101,5 +77,12 @@ class ScreenSaverHero extends FlxSprite
 	{
 		angle = FlxG.random.float(0, 359);
 		velocity.setPolarDegrees(speed, angle);
+	}
+
+	function rainbowRegion()
+	{
+		var colors = [0xFF0000, 0xFF7F00, 0xFFFF00, 0x00FF00, 0x0000FF, 0x4B0082, 0x9400D3];
+		var region = Std.int(Math.min(x / (FlxG.width / colors.length), colors.length - 1));
+		color = colors[region];
 	}
 }

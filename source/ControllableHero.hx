@@ -51,13 +51,21 @@ class ControllableHero extends FlxSprite
 	override function update(elapsed:Float)
 	{
 		if (FlxG.keys.pressed.UP)
+		{
 			velocity.y = CHSPEED * -1;
+		}
 		else if (FlxG.keys.pressed.DOWN)
+		{
 			velocity.y = CHSPEED;
+		}
 		else if (FlxG.keys.pressed.LEFT)
+		{
 			velocity.x = CHSPEED * -1;
+		}
 		else if (FlxG.keys.pressed.RIGHT)
+		{
 			velocity.x = CHSPEED;
+		}
 		else
 		{
 			velocity.x = 0;
