@@ -2,13 +2,23 @@ package;
 
 import flixel.FlxSprite;
 
+/**
+	A solid wall that the ControllableHero can not pass through.
+**/
 class Wall extends FlxSprite
 {
-	public function new(x:Float = 0, y:Float = 0, w:Int = 0, h:Int = 0)
+	/**
+		Creates an individual wall.
+		@param	xPos		The x coordinate where the wall will start.
+		@param	yPos		The y coordinate where the wall will start.
+		@param	wallWidth	The size of the wall in the x direction.
+		@param	wallHeight	The size of the wall in the y direction.
+	**/
+	public function new(xPos:Float = 0, yPos:Float = 0, wallWidth:Int = 0, wallHeight:Int = 0)
 	{
-		super(x, y);
+		super(xPos, yPos);
 
-		makeGraphic(w, h);
+		makeGraphic(wallWidth, wallHeight);
 
 		immovable = true;
 	}
