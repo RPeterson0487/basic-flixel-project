@@ -19,8 +19,8 @@ class PlayState extends FlxState
 	static var NUMSSHEROMAX:Int = 20;
 	static var SSHXPOS:Float = 320;
 	static var SSHYPOS:Float = 180;
-	static var BOXSIZE = .125; // This is a percentage of the play screen
-	static var WALLWIDTH = 5;
+	static var BOXSIZE:Float = .75; // This is a percentage of the play screen
+	static var WALLWIDTH:Int = 5;
 
 	var controllableHero:ControllableHero;
 	var screenSaverHeroGroup = new FlxTypedGroup<ScreenSaverHero>();
@@ -49,23 +49,10 @@ class PlayState extends FlxState
 			add(screenSaverHero);
 		}
 
-		/* boxWall();
-			add(wallGroup); */
+		boxWall();
+		add(wallGroup);
 
 		add(controllableHero);
-
-		var wallTop = new Wall(80, 60, 480, 5);
-		var wallBottom = new Wall(80, 420, 480, 5);
-		var wallLeft = new Wall(80, 60, 5, 360);
-		var wallRight = new Wall(560, 60, 5, 365);
-		wallGroup.add(wallTop);
-		wallGroup.add(wallBottom);
-		wallGroup.add(wallLeft);
-		wallGroup.add(wallRight);
-		add(wallTop);
-		add(wallBottom);
-		add(wallLeft);
-		add(wallRight);
 	}
 
 	override public function update(elapsed:Float)
@@ -78,15 +65,15 @@ class PlayState extends FlxState
 
 	function boxWall()
 	{
-		var leftX = FlxG.width * BOXSIZE;
-		var leftY = FlxG.height * BOXSIZE;
-		var rightX = leftX * (1 - BOXSIZE);
-		var rightY = leftY * (1 - BOXSIZE);
+		var leftX = (FlxG.width * (1 - BOXSIZE)) / 2;
+		var leftY = (FlxG.height * (1 - BOXSIZE)) / 2;
+		var xLength = FlxG.width * BOXSIZE;
+		var yLength = FlxG.height * BOXSIZE;
 
-		var wallTop = new Wall(leftX, leftY, (Std.int(rightX - leftX)), WALLWIDTH);
-		var wallBottom = new Wall(leftX, rightY, (Std.int(rightX - leftX)), WALLWIDTH);
-		var wallLeft = new Wall(leftX, rightY, WALLWIDTH, (Std.int(rightY - leftY)));
-		var wallRight = new Wall(rightX, leftY, WALLWIDTH, (Std.int(rightY - leftY) + 5));
+		var wallTop = new Wall(leftX, leftY, Std.int(xLength), WALLWIDTH);
+		var wallBottom = new Wall(leftX, (leftY + yLength), Std.int(xLength), WALLWIDTH);
+		var wallLeft = new Wall(leftX, leftY, WALLWIDTH, Std.int(yLength));
+		var wallRight = new Wall((leftX + xLength), leftY, WALLWIDTH, (Std.int(yLength) + WALLWIDTH));
 
 		wallGroup.add(wallTop);
 		wallGroup.add(wallBottom);
