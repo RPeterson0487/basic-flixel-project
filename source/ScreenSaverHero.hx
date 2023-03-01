@@ -46,6 +46,29 @@ class ScreenSaverHero extends FlxSprite
 
 		FlxSpriteUtil.screenWrap(this);
 
+		velocityControl();
+
+		super.update(elapsed);
+	}
+
+	/**
+		Controls the starting speed and direction (and rotation) of each sprite.
+	**/
+	private function startVelocity()
+	{
+		angle = FlxG.random.float(0, 359);
+		velocity.setPolarDegrees(speed, angle);
+	}
+
+	private function rainbowRegion()
+	{
+		var colors = [0xFF0000, 0xFF7F00, 0xFFFF00, 0x00FF00, 0x0000FF, 0x4B0082, 0x9400D3];
+		var region = Std.int(Math.min(x / (FlxG.width / colors.length), colors.length - 1));
+		color = colors[region];
+	}
+
+	private function velocityControl()
+	{
 		if (FlxG.keys.pressed.LEFT)
 		{
 			angle -= 1;
@@ -66,23 +89,5 @@ class ScreenSaverHero extends FlxSprite
 			speed -= 1;
 			velocity.setPolarDegrees(speed, angle);
 		}
-
-		super.update(elapsed);
-	}
-
-	/**
-		Controls the starting speed and direction (and rotation) of each sprite.
-	**/
-	function startVelocity()
-	{
-		angle = FlxG.random.float(0, 359);
-		velocity.setPolarDegrees(speed, angle);
-	}
-
-	function rainbowRegion()
-	{
-		var colors = [0xFF0000, 0xFF7F00, 0xFFFF00, 0x00FF00, 0x0000FF, 0x4B0082, 0x9400D3];
-		var region = Std.int(Math.min(x / (FlxG.width / colors.length), colors.length - 1));
-		color = colors[region];
 	}
 }
