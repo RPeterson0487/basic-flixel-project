@@ -31,8 +31,6 @@ class PlayState extends FlxState
 		super.create();
 		controllableHero = new ControllableHero(CHXPOS, CHYPOS);
 
-		// bgColor = 0xFFFFFFFF;
-
 		var myHero = new Hero(HEROXPOS, HEROYPOS);
 		add(myHero);
 

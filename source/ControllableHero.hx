@@ -40,38 +40,73 @@ class ControllableHero extends FlxSprite
 		super(xPos, yPos);
 
 		makeGraphic(CHWIDTH, CHHEIGHT, CHCOLOR);
+		drag.x = drag.y = 800;
 	}
 
-	/**
-		Directional movement is handled in ControllableHero's update function.
-		When a directional key is pressed, the hero will move in that direction
-		and when no key is pressed, the hero stops moving.
-		Speed is controlled individually through velocity.x and velocity.y.
-	**/
 	override function update(elapsed:Float)
 	{
-		if (FlxG.keys.pressed.UP)
-		{
-			velocity.y = CHSPEED * -1;
-		}
-		else if (FlxG.keys.pressed.DOWN)
-		{
-			velocity.y = CHSPEED;
-		}
-		else if (FlxG.keys.pressed.LEFT)
-		{
-			velocity.x = CHSPEED * -1;
-		}
-		else if (FlxG.keys.pressed.RIGHT)
-		{
-			velocity.x = CHSPEED;
-		}
-		else
-		{
-			velocity.x = 0;
-			velocity.y = 0;
-		}
+		movement();
 
 		super.update(elapsed);
+	}
+
+	private function movement()
+	{
+		var up:Bool = false;
+		var down:Bool = false;
+		var left:Bool = false;
+		var right:Bool = false;
+
+		up = FlxG.keys.anyPressed([UP]);
+		down = FlxG.keys.anyPressed([DOWN]);
+		left = FlxG.keys.anyPressed([LEFT]);
+		right = FlxG.keys.anyPressed([RIGHT]);
+
+		if (up && down)
+		{
+			up = down = false;
+		}
+		if (left && right)
+		{
+			left = right = false;
+		}
+
+		if (up || down || left || right)
+		{
+			var newAngle:Float = 0;
+			if (up)
+			{
+				newAngle = -90;
+				if (left)
+				{
+					newAngle -= 45;
+				}
+				else if (right)
+				{
+					newAngle += 45;
+				}
+			}
+			else if (down)
+			{
+				newAngle = 90;
+				if (left)
+				{
+					newAngle += 45;
+				}
+				else if (right)
+				{
+					newAngle -= 45;
+				}
+			}
+			else if (left)
+			{
+				newAngle = 180;
+			}
+			else if (right)
+			{
+				newAngle = 0;
+			}
+			velocity.setPolarDegrees(CHSPEED, newAngle);
+		}
 	}
 }
