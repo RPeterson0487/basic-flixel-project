@@ -5,54 +5,40 @@ import flixel.FlxG;
 import flixel.FlxSprite;
 
 /**
-	A random number of ScreenSaverHero sprites that start facing a random
-	direction and move around the screen. The speed and rotation of the sprites
-	are changed by pressing the arrow keys on the keyboard. Pressing up or down
-	increases and decreases the speed of the sprites, including going in
-	reverse. Pressing the left and right arrow keys turns the sprites left or
-	right. When a sprite reaches the edge of the playing screen, it wraps to the
-	opposite side of the screen.
+	Creates a ScreenSaverHero sprite at a given location is pointed and moving
+	in a random direction from the start point at a set speed. As the sprite
+	moves through the field, its color changes based on its location. Speed and
+	direction are contollable by the keyboard arrow keys.
 **/
 class ScreenSaverHero extends FlxSprite
 {
+	/**The Width of the ScreenSaverHero sprite.**/
 	static inline var SSHWIDTH = 20;
+
+	/**The length of the ScreenSaverHero sprite.**/
 	static inline var SSHHEIGHT = 10;
 
+	/** The speed  of the ScreenSaverHero sprite.**/
 	var speed = 50;
 
-	/**
-		Creates a random number of ScreenSaverHero sprites. Speed and direction
-		are controlled through the controlVelocity function.
-		@param	xPos	The initial x position of the sprite.
-		@param	yPos	The initial y position of the sprite.
-	**/
 	public function new(xPos:Float = 0, yPos:Float = 0)
 	{
 		super(xPos, yPos);
-
 		makeGraphic(SSHWIDTH, SSHHEIGHT);
 		startVelocity();
 	}
 
-	/**
-		The color, speed, and direction of the sprites are controlled through
-		the update function. The color of each individual sprite is dependant
-		on its x coordinate on the playing screen. The speed and direction of
-		all of the sprites are changed through the keyboard arrow keys.
-	**/
 	override function update(elapsed:Float)
 	{
 		rainbowRegion();
-
 		FlxSpriteUtil.screenWrap(this);
-
 		velocityControl();
-
 		super.update(elapsed);
 	}
 
 	/**
-		Controls the starting speed and direction (and rotation) of each sprite.
+		Starting velocity is controlled by the class level speed variable and a
+		ranomly determined direction.
 	**/
 	private function startVelocity()
 	{
@@ -60,6 +46,11 @@ class ScreenSaverHero extends FlxSprite
 		velocity.setPolarDegrees(speed, angle);
 	}
 
+	/**
+		Color is determined by the ScreenSaverHero sprite's X coordinate in a
+		region based on the play screen divided by the colors in the array of
+		colors.
+	**/
 	private function rainbowRegion()
 	{
 		var colors = [0xFF0000, 0xFF7F00, 0xFFFF00, 0x00FF00, 0x0000FF, 0x4B0082, 0x9400D3];
@@ -67,6 +58,12 @@ class ScreenSaverHero extends FlxSprite
 		color = colors[region];
 	}
 
+	/**
+		Speed and direction are controlled by the keyboard arrow keys. UP and
+		DOWN increase and decrease the speed, including in reverse. LEFT and
+		RIGHT rotate the ScreenSaverHero sprite counter clockwise and Clockwise,
+		which also changes its direction of movement.
+	**/
 	private function velocityControl()
 	{
 		if (FlxG.keys.pressed.LEFT)
