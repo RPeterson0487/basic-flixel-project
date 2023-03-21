@@ -50,10 +50,13 @@ class PlayState extends FlxState
 	/** How thick the walls of the bounding box are.**/
 	static var WALLWIDTH:Int = 5;
 
+	static var FIREBALLSIZE:Int = 5;
+
 	// Class level variables for collision detection.
 	var controllableHero:ControllableHero;
 	var screenSaverHeroGroup = new FlxTypedGroup<ScreenSaverHero>();
 	var wallGroup = new FlxTypedGroup<Wall>();
+	var fireGroup = new FlxTypedGroup<Fireball>();
 
 	override public function create()
 	{
@@ -83,6 +86,9 @@ class PlayState extends FlxState
 		add(wallGroup);
 
 		add(controllableHero);
+
+		createFireballs();
+		add(fireGroup);
 	}
 
 	override public function update(elapsed:Float)
@@ -114,6 +120,19 @@ class PlayState extends FlxState
 		wallGroup.add(wallBottom);
 		wallGroup.add(wallLeft);
 		wallGroup.add(wallRight);
+	}
+
+	function createFireballs()
+	{
+		var fireball1 = new Fireball(10, 10, FIREBALLSIZE, controllableHero);
+		var fireball2 = new Fireball(640 - 10 - FIREBALLSIZE, 10, FIREBALLSIZE, controllableHero);
+		var fireball3 = new Fireball(10, 480 - 10 - FIREBALLSIZE, FIREBALLSIZE, controllableHero);
+		var fireball4 = new Fireball(640 - 10 - FIREBALLSIZE, 480 - 10 - FIREBALLSIZE, FIREBALLSIZE, controllableHero);
+
+		fireGroup.add(fireball1);
+		fireGroup.add(fireball2);
+		fireGroup.add(fireball3);
+		fireGroup.add(fireball4);
 	}
 
 	/**
